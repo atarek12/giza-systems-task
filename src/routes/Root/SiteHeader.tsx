@@ -10,7 +10,12 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({}) => {
       direction="row"
       justify="space-between"
       align="center"
+      position="sticky"
+      top="0"
       padding="12px 16px"
+      background="gray.300"
+      boxShadow="md"
+      zIndex={1}
     >
       <Stack direction="row" align="center" spacing="6px">
         <SunIcon color="blue.500" boxSize="40px" />

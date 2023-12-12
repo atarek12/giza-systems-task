@@ -20,7 +20,7 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   return (
-    <Card maxW="md">
+    <Card maxW="md" border="1px solid" borderColor="blue.100">
       <CardHeader>
         <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
           <Avatar name={post.userId + ""} />
