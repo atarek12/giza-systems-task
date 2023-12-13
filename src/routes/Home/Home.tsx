@@ -4,6 +4,7 @@ import { api } from "../../libs/axios";
 import {
   ActionFunction,
   LoaderFunction,
+  Outlet,
   json,
   useLoaderData,
 } from "react-router-dom";
@@ -36,6 +37,7 @@ const Home: React.FC<HomeProps> = ({}) => {
         <Heading>What's new...</Heading>
         <PostsList posts={posts} />
       </Stack>
+      <Outlet />
     </Container>
   );
 };

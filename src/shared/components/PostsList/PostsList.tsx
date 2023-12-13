@@ -25,8 +25,8 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
   return (
     <Stack spacing="20px">
       {posts.slice(start, end).map((post, index) => (
-        <Box>
-          <PostCard key={post.id} index={index} post={post} />
+        <Box key={post.id}>
+          <PostCard index={index} post={post} />
           {index === end - 1 && <Box ref={ref} h="1px" />}
         </Box>
       ))}

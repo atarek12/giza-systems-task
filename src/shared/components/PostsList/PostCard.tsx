@@ -2,6 +2,7 @@ import React from "react";
 import { TPost } from "../../types";
 import {
   Avatar,
+  Box,
   Button,
   Card,
   CardBody,
@@ -11,7 +12,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { ChatIcon } from "@chakra-ui/icons";
+import { ChatIcon, ViewIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 interface PostCardProps {
@@ -25,12 +26,12 @@ const PostCard: React.FC<PostCardProps> = ({ index, post }) => {
       <CardHeader>
         <Flex flex="1" gap="4" alignItems="center">
           <Avatar name={`${index + 1}`} />
-          <Link to={`user/${post.userId}`}>
-            <Heading size="sm" _hover={{ textDecor: "underline" }}>
-              {post.title}
-            </Heading>
-            <Text>POST ID: {post.id}</Text>
-          </Link>
+          <Box>
+            <Heading size="sm">{post.title}</Heading>
+            <Text>
+              POST ID: {post.id} - USER ID: {post.userId}
+            </Text>
+          </Box>
         </Flex>
       </CardHeader>
       <CardBody>
@@ -40,11 +41,22 @@ const PostCard: React.FC<PostCardProps> = ({ index, post }) => {
       <CardFooter>
         <Button
           flex="1"
+          mr="10px"
           leftIcon={<ChatIcon />}
           as={Link}
-          to={`posts/${post.id}`}
+          to={`posts/${post.id}/comments`}
         >
           See Comments
+        </Button>
+        <Button
+          flex="1"
+          colorScheme="blue"
+          variant="outline"
+          leftIcon={<ViewIcon />}
+          as={Link}
+          to={`users/${post.userId}`}
+        >
+          Open User Profile
         </Button>
       </CardFooter>
     </Card>
