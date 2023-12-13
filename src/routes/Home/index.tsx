@@ -11,4 +11,5 @@ export const HomeRoute: RouteObject = {
   loader,
   action,
   children: [CommentsRoute],
+  shouldRevalidate: () => false,
 };

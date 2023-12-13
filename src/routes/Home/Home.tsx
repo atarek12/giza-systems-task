@@ -6,24 +6,26 @@ import {
   LoaderFunction,
   Outlet,
   json,
+  useFetcher,
   useLoaderData,
 } from "react-router-dom";
 import { TPost } from "../../shared/types";
 import { PostsList } from "../../shared/components";
-import { setCount, useAppDispatch } from "../../libs/redux";
+import {
+  addPost,
+  setPosts,
+  useAppDispatch,
+  useAppSelector,
+} from "../../libs/redux";
 import CreatePost, { TCreatePostFormValues } from "./components/CreatePost";
 
 export const loader: LoaderFunction = async () => {
   const posts = await api.listPosts({});
-  return posts.reverse();
+  return posts;
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const values: TCreatePostFormValues = [...(formData as any).entries()].reduce(
-    (acc, curr) => ({ ...acc, [curr[0]]: curr[1] }),
-    {},
-  );
+  const values: TCreatePostFormValues = await request.json();
   const newPost = await api.createPost(values);
   return json(newPost);
 };
@@ -31,22 +33,31 @@ export const action: ActionFunction = async ({ request }) => {
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = ({}) => {
-  const posts = useLoaderData() as TPost[];
+  const loaderPosts = useLoaderData() as TPost[];
   const dispatch = useAppDispatch();
+  const fetcher = useFetcher();
+  const posts = useAppSelector((state) => state.posts.items);
 
   useEffect(() => {
-    dispatch(setCount(posts.length));
-  }, [dispatch, posts]);
+    if (!posts.length) {
+      dispatch(setPosts(loaderPosts));
+    }
+  }, [dispatch, loaderPosts, posts.length]);
+
+  const handleCreatePost = (values: TCreatePostFormValues) => {
+    fetcher.submit(values, { method: "POST", encType: "application/json" });
+    dispatch(addPost({ ...values, id: posts.length + 1 }));
+  };
 
   return (
     <Container maxW="1400" paddingTop="60px">
       <Stack direction="row" spacing="160px">
         <Stack spacing="16px" flex="1">
           <Heading>What's new...</Heading>
-          <PostsList posts={posts} />
+          <PostsList posts={posts || loaderPosts} />
         </Stack>
         <Box flex="1">
-          <CreatePost />
+          <CreatePost onSubmit={handleCreatePost} />
         </Box>
       </Stack>
       <Outlet />

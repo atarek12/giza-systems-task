@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { FormInput } from "../../../shared/components";
-import { useFetcher } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -27,18 +26,15 @@ export type TCreatePostFormValues = {
   body: string;
 };
 
-interface CreatePostProps {}
+interface CreatePostProps {
+  onSubmit: (values: TCreatePostFormValues) => void;
+}
 
-const CreatePost: React.FC<CreatePostProps> = () => {
-  const fetcher = useFetcher();
+const CreatePost: React.FC<CreatePostProps> = ({ onSubmit }) => {
   const useFormAttributes = useForm<TCreatePostFormValues>({
     defaultValues: { body: "", title: "", userId: 1 },
     resolver: yupResolver<TCreatePostFormValues>(schema),
   });
-
-  const onSubmit = (values: TCreatePostFormValues) => {
-    fetcher.submit(values, { method: "POST" });
-  };
 
   return (
     <FormProvider {...useFormAttributes}>
