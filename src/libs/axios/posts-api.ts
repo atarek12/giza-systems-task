@@ -8,7 +8,7 @@ export async function listPosts(variables: TGetPostsVariables) {
   const { forUserId: userId } = variables;
   const res = await axios<TPost[]>({
     method: "GET",
-    url: `/posts${userId ? `userId=${userId}` : ""}`,
+    url: `/posts${userId ? `?userId=${userId}` : ""}`,
   });
   return res.data;
 }

@@ -7,9 +7,10 @@ import { useIntersectionObserver } from "../../hooks";
 
 interface PostsListProps {
   posts: TPost[];
+  hideButtons?: boolean;
 }
 
-const PostsList: React.FC<PostsListProps> = ({ posts }) => {
+const PostsList: React.FC<PostsListProps> = ({ posts, hideButtons }) => {
   const { isIntersecting, ref } = useIntersectionObserver({ once: true });
   const dispatch = useAppDispatch();
   const postsState = useAppSelector((state) => state.posts);
@@ -26,7 +27,7 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
     <Stack spacing="20px">
       {posts.slice(start, end).map((post, index) => (
         <Box key={post.id}>
-          <PostCard index={index} post={post} />
+          <PostCard index={index} post={post} hideButtons={hideButtons} />
           {index === end - 1 && <Box ref={ref} h="1px" />}
         </Box>
       ))}
