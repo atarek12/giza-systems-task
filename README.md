@@ -21,6 +21,6 @@ To run the development environment follow these steps:
 - Fully typed by `Typescript`
 - State management by `React-Redux`
 - Client-side routing by `React-Router`
-- Form and validation by `Formik and yup`
+- Form and validation by `react-hook-form and yup`
 - Designed using `ChakraUi` design system
 - Api requests using `axios`

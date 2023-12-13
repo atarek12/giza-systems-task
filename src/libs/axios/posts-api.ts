@@ -37,7 +37,7 @@ export async function getPostComments(variables: TGetPostVariables) {
 export type TCreatePostVariables = {
   title: string;
   body: string;
-  userId: string;
+  userId: number;
 };
 export async function createPost(variables: TCreatePostVariables) {
   const { ...data } = variables;
