@@ -47,6 +47,7 @@ const PostCard: React.FC<PostCardProps> = ({ index, post, hideButtons }) => {
             leftIcon={<ChatIcon />}
             as={Link}
             to={`posts/${post.id}/comments`}
+            preventScrollReset
           >
             See Comments
           </Button>
