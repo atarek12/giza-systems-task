@@ -1,7 +1,6 @@
 import React from "react";
 import {
   ActionFunction,
-  Link,
   LoaderFunction,
   json,
   useLoaderData,
@@ -26,8 +25,15 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
+const FAKE_CACHE: Record<string, TComment[]> = {};
+
 export const loader: LoaderFunction = async ({ params }) => {
-  const comments = await api.getPostComments({ postId: params.postId! });
+  const postId = params.postId!;
+  if (FAKE_CACHE[postId]) {
+    return FAKE_CACHE[postId];
+  }
+  const comments = await api.getPostComments({ postId });
+  FAKE_CACHE[postId] = comments;
   return comments;
 };
 
@@ -42,7 +48,7 @@ const Comments: React.FC<CommentsProps> = ({}) => {
   const navigate = useNavigate();
 
   const onClose = () => {
-    navigate("/");
+    navigate("/", { preventScrollReset: true });
   };
 
   return (
@@ -75,9 +81,7 @@ const Comments: React.FC<CommentsProps> = ({}) => {
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <Button as={Link} to="/">
-            Close
-          </Button>
+          <Button onClick={onClose}>Close</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
