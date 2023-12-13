@@ -1,6 +1,7 @@
 import { SunIcon } from "@chakra-ui/icons";
 import { Avatar, Stack, Text } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface SiteHeaderProps {}
 
@@ -17,7 +18,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({}) => {
       boxShadow="md"
       zIndex={1}
     >
-      <Stack direction="row" align="center" spacing="6px">
+      <Stack direction="row" align="center" spacing="6px" as={Link} to="/">
         <SunIcon color="blue.500" boxSize="40px" />
         <Text
           color="blue.700"

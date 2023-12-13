@@ -24,3 +24,9 @@ To run the development environment follow these steps:
 - Form and validation by `react-hook-form and yup`
 - Designed using `ChakraUi` design system
 - Api requests using `axios`
+
+## Features
+- Lazy loading of all routes
+- Lazy loading long posts list
+- Optimistic api updates
+- Caching for requested post-comments
