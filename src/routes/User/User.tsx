@@ -7,8 +7,10 @@ import UserInfo from "./components/UserInfo";
 import { PostsList } from "../../shared/components";
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const posts = await api.listPosts({ forUserId: params.userId! });
-  const info = await api.userInfo({ userId: params.userId! });
+  const [posts, info] = await Promise.all([
+    api.listPosts({ forUserId: params.userId! }),
+    api.userInfo({ userId: params.userId! }),
+  ]);
   return { posts, info };
 };
 
