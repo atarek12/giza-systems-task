@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import postsReducer from "./slices/posts-slice";
 import flightsReducer from "./slices/flights-slice";
 import {
   Provider,
@@ -11,7 +10,6 @@ import {
 
 const store = configureStore({
   reducer: {
-    posts: postsReducer,
     flights: flightsReducer,
   },
   middleware: (getDefaultMiddleware) =>
