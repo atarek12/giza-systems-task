@@ -1,11 +1,14 @@
 import { SunIcon } from "@chakra-ui/icons";
-import { Avatar, Stack, Text } from "@chakra-ui/react";
+import { Avatar, Spinner, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../libs/redux";
 
 interface SiteHeaderProps {}
 
 const SiteHeader: React.FC<SiteHeaderProps> = ({}) => {
+  const { loading } = useAppSelector((state) => state.flights);
+
   return (
     <Stack
       direction="row"
@@ -30,7 +33,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({}) => {
         </Text>
       </Stack>
 
-      <Avatar />
+      <Avatar icon={loading ? <Spinner /> : undefined} />
     </Stack>
   );
 };

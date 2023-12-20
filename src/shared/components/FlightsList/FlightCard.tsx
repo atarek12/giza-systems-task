@@ -1,5 +1,5 @@
 import React from "react";
-import { TPost } from "../../types";
+import { TFlight } from "../../types";
 import {
   Avatar,
   Box,
@@ -12,31 +12,34 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { ChatIcon, ViewIcon } from "@chakra-ui/icons";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
-interface PostCardProps {
+interface FlightCardProps {
   index: number;
-  post: TPost;
+  flight: TFlight;
   hideButtons?: boolean;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ index, post, hideButtons }) => {
+const FlightCard: React.FC<FlightCardProps> = ({
+  index,
+  flight,
+  hideButtons,
+}) => {
   return (
     <Card border="1px solid" borderColor="blue.100">
       <CardHeader>
         <Flex flex="1" gap="4" alignItems="center">
           <Avatar name={`${index + 1}`} />
           <Box>
-            <Heading size="sm">{post.title}</Heading>
-            <Text>
-              POST ID: {post.id} - USER ID: {post.userId}
-            </Text>
+            <Heading size="sm">{flight.code}</Heading>
+            <Text>FLIGHT ID: {flight.id}</Text>
           </Box>
         </Flex>
       </CardHeader>
       <CardBody>
-        <Text>{post.body}</Text>
+        <Text>Capacity: {flight.capacity}</Text>
+        <Text>Trip Date: {flight.date}</Text>
       </CardBody>
 
       {!hideButtons && (
@@ -44,22 +47,20 @@ const PostCard: React.FC<PostCardProps> = ({ index, post, hideButtons }) => {
           <Button
             flex="1"
             mr="10px"
-            leftIcon={<ChatIcon />}
+            leftIcon={<EditIcon />}
             as={Link}
-            to={`posts/${post.id}/comments`}
+            to={`flights/${flight.id}`}
             preventScrollReset
           >
-            See Comments
+            Edit
           </Button>
           <Button
             flex="1"
             colorScheme="blue"
             variant="outline"
-            leftIcon={<ViewIcon />}
-            as={Link}
-            to={`users/${post.userId}`}
+            leftIcon={<DeleteIcon />}
           >
-            Open User Profile
+            Delete
           </Button>
         </CardFooter>
       )}
@@ -67,4 +68,4 @@ const PostCard: React.FC<PostCardProps> = ({ index, post, hideButtons }) => {
   );
 };
 
-export { PostCard };
+export { FlightCard };

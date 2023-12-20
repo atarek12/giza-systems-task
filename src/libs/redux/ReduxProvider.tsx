@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
 import flightsReducer from "./slices/flights-slice";
 import {
   Provider,
@@ -12,8 +11,6 @@ const store = configureStore({
   reducer: {
     flights: flightsReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(thunk as any),
 });
 
 type RootState = ReturnType<typeof store.getState>;
