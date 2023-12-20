@@ -44,7 +44,11 @@ const CreateFlight: React.FC<CreateFlightProps> = ({ onSubmit }) => {
             <Stack spacing="16px">
               <FormInput type="text" name="code" label="Flight Code" />
               <FormInput type="date" name="date" label="Flight Date" />
-              <FormInput type="number" name="code" label="Flight Capacity" />
+              <FormInput
+                type="number"
+                name="capacity"
+                label="Flight Capacity"
+              />
             </Stack>
           </CardBody>
 

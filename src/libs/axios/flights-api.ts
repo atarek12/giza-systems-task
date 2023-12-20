@@ -53,9 +53,9 @@ export type TDeleteFlightVariables = {
 };
 export async function deleteFlight(variables: TDeleteFlightVariables) {
   const { flightId } = variables;
-  const res = await axios<void>({
+  await axios<void>({
     method: "DELETE",
     url: `flights/${flightId}`,
   });
-  return res.data;
+  return { flightId };
 }

@@ -1,4 +1,4 @@
-import { Box, Container, Heading, Stack } from "@chakra-ui/react";
+import { Box, Container, Heading, SkeletonText, Stack } from "@chakra-ui/react";
 import React, { useLayoutEffect } from "react";
 import {
   addFlightAction,
@@ -13,13 +13,13 @@ interface HomeProps {}
 
 const Home: React.FC<HomeProps> = ({}) => {
   const dispatch = useAppDispatch();
-  const { items: flights, error } = useAppSelector((state) => state.flights);
+  const { items, error } = useAppSelector((state) => state.flights);
 
   useLayoutEffect(() => {
-    if (!flights.length) {
-      dispatch(loadFlightsAction);
+    if (!items.length) {
+      dispatch(loadFlightsAction());
     }
-  }, [dispatch, flights.length]);
+  }, [dispatch, items.length]);
 
   const handleCreatePost = (values: TCreateFlightFormValues) => {
     dispatch(addFlightAction(values));
@@ -34,7 +34,7 @@ const Home: React.FC<HomeProps> = ({}) => {
       <Stack direction="row" spacing="160px">
         <Stack spacing="16px" flex="1">
           <Heading>What's new...</Heading>
-          <FlightsList flights={flights} />
+          {!items.length ? <SkeletonText /> : <FlightsList flights={items} />}
         </Stack>
         <Box flex="1">
           <CreatePost onSubmit={handleCreatePost} />

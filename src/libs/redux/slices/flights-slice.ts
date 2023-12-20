@@ -75,9 +75,9 @@ export const flightsSlice = createSlice({
       })
       .addCase(deleteFlightAction.fulfilled, (state, action) => {
         state.loading = false;
-        // state.items = state.items.filter(
-        //   (i) => i.id !== action.payload.deletedId
-        // );
+        state.items = state.items.filter(
+          (i) => i.id !== action.payload.flightId
+        );
       })
       .addCase(deleteFlightAction.rejected, (state, action) => {
         state.loading = false;

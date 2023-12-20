@@ -11,9 +11,12 @@ import {
   Flex,
   Heading,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { ConfirmationModal } from "../ConfirmationModal";
+import { deleteFlightAction, useAppDispatch } from "../../../libs/redux";
 
 interface FlightCardProps {
   index: number;
@@ -26,6 +29,14 @@ const FlightCard: React.FC<FlightCardProps> = ({
   flight,
   hideButtons,
 }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useAppDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteFlightAction({ flightId: flight.id }));
+    onClose();
+  };
+
   return (
     <Card border="1px solid" borderColor="blue.100">
       <CardHeader>
@@ -38,6 +49,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
         </Flex>
       </CardHeader>
       <CardBody>
+        <Text>Code: {flight.code}</Text>
         <Text>Capacity: {flight.capacity}</Text>
         <Text>Trip Date: {flight.date}</Text>
       </CardBody>
@@ -50,20 +62,26 @@ const FlightCard: React.FC<FlightCardProps> = ({
             leftIcon={<EditIcon />}
             as={Link}
             to={`flights/${flight.id}`}
-            preventScrollReset
           >
             Edit
           </Button>
           <Button
             flex="1"
-            colorScheme="blue"
+            colorScheme="red"
             variant="outline"
             leftIcon={<DeleteIcon />}
+            onClick={onOpen}
           >
             Delete
           </Button>
         </CardFooter>
       )}
+
+      <ConfirmationModal
+        isOpen={isOpen}
+        onConfirm={handleDelete}
+        onClose={onClose}
+      />
     </Card>
   );
 };
