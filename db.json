@@ -1,0 +1,10 @@
+{
+  "flights": [
+    {
+      "id": "1",
+      "code": "AAAA-AAAA",
+      "capacity": 200,
+      "date": "1703087599623"
+    }
+  ]
+}
