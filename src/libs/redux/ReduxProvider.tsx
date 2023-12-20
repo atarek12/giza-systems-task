@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
 import postsReducer from "./slices/posts-slice";
+import flightsReducer from "./slices/flights-slice";
 import {
   Provider,
   TypedUseSelectorHook,
@@ -10,7 +12,10 @@ import {
 const store = configureStore({
   reducer: {
     posts: postsReducer,
+    flights: flightsReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(thunk as any),
 });
 
 type RootState = ReturnType<typeof store.getState>;

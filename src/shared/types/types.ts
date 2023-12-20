@@ -36,3 +36,10 @@ export type TUser = {
     bs: string;
   };
 };
+
+export type TFlight = {
+  id: string;
+  code: string;
+  date: string;
+  capacity: number;
+};
