@@ -20,6 +20,7 @@ const Component: React.FC<HomeProps> = ({}) => {
   const { items, error } = useAppSelector((state) => state.flights);
   const toast = useToast();
   const previousItemsLength = useRef(items.length || 0);
+  const isCalledRef = useRef(false);
 
   useEffect(() => {
     // scroll down after creating a new flight
@@ -37,7 +38,8 @@ const Component: React.FC<HomeProps> = ({}) => {
   }, [items.length]);
 
   useLayoutEffect(() => {
-    if (!items.length) {
+    if (!items.length && !isCalledRef.current) {
+      isCalledRef.current = true;
       dispatch(listFlightsAction());
     }
   }, [dispatch, items.length]);
@@ -58,7 +60,7 @@ const Component: React.FC<HomeProps> = ({}) => {
   }
 
   return (
-    <Container maxW="1400" paddingY="100px">
+    <Container maxW="1400px" paddingY="100px">
       <Stack direction={{ base: "column", md: "row" }} spacing="160px">
         <Stack spacing="16px" flex="1">
           <Heading>What's new...</Heading>

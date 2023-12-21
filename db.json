@@ -1,11 +1,13 @@
 {
-  "flights": [
+  "users": [
     {
-      "code": "123123",
-      "capacity": 400,
-      "date": "2023-12-30",
-      "id": "1"
-    },
+      "email": "ahmed@mail.com",
+      "password": "$2a$10$okBWfQQ/ErxtjczoEZ1.HOLkmufr7VjcgxwSuneTuF242BJmaf/3m",
+      "name": "Ahmed Tarek",
+      "id": 1
+    }
+  ],
+  "flights": [
     {
       "capacity": 400,
       "date": "2023-12-28",

@@ -4,3 +4,14 @@ export type TFlight = {
   date: string;
   capacity: number;
 };
+
+export type TUser = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export type TAuth = {
+  user: TUser;
+  accessToken: string;
+};

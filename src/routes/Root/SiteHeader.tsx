@@ -1,13 +1,20 @@
 import { SunIcon } from "@chakra-ui/icons";
-import { Avatar, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Avatar, Button, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
-import { useAppSelector } from "../../libs/redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logoutAction, useAppDispatch, useAppSelector } from "../../libs/redux";
 
 interface SiteHeaderProps {}
 
 const SiteHeader: React.FC<SiteHeaderProps> = ({}) => {
-  const { loading } = useAppSelector((state) => state.flights);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+
+  const handleLogout = () => {
+    dispatch(logoutAction());
+    navigate("/auth/login", { replace: true });
+  };
 
   return (
     <Stack
@@ -33,7 +40,14 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({}) => {
         </Text>
       </Stack>
 
-      <Avatar icon={loading ? <Spinner /> : undefined} />
+      <Stack direction="row">
+        {!!user && (
+          <Button variant="link" colorScheme="black" onClick={handleLogout}>
+            LOGOUT
+          </Button>
+        )}
+        <Avatar name={user?.name} />
+      </Stack>
     </Stack>
   );
 };

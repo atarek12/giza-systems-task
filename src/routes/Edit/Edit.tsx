@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import {
   getFlightAction,
   updateFlightAction,
@@ -22,10 +22,12 @@ const Component: React.FC<EditProps> = ({}) => {
   const toast = useToast();
   const params = useParams();
   const dispatch = useAppDispatch();
+  const isCalledRef = useRef(false);
   const { currentItem, loading } = useAppSelector((state) => state.flights);
 
   useLayoutEffect(() => {
-    if (!currentItem && params.flightId) {
+    if (!currentItem && params.flightId && !isCalledRef.current) {
+      isCalledRef.current = true;
       dispatch(getFlightAction({ flightId: params.flightId }));
     }
   }, [dispatch, currentItem, params.flightId]);
