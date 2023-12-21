@@ -12,6 +12,7 @@ import {
   Heading,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -26,10 +27,18 @@ interface FlightCardProps {
 const FlightCard: React.FC<FlightCardProps> = ({ flight, hideButtons }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useAppDispatch();
+  const toast = useToast();
 
   const handleDelete = () => {
     dispatch(deleteFlightAction({ flightId: flight.id }));
     onClose();
+    toast({
+      title: "Flight deleted.",
+      description: "We've deleted the flight.",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   return (

@@ -5,14 +5,21 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../libs/redux";
-import { Container, Heading, SkeletonText, Stack } from "@chakra-ui/react";
+import {
+  Container,
+  Heading,
+  SkeletonText,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
 import { Navigate, useParams } from "react-router-dom";
 import { AddUpdateFlight, TFlightFormValues } from "../../shared/components";
 import BackButton from "./BackButton";
 
 interface EditProps {}
 
-const Edit: React.FC<EditProps> = ({}) => {
+const Component: React.FC<EditProps> = ({}) => {
+  const toast = useToast();
   const params = useParams();
   const dispatch = useAppDispatch();
   const { currentItem, loading } = useAppSelector((state) => state.flights);
@@ -26,6 +33,13 @@ const Edit: React.FC<EditProps> = ({}) => {
   const handleEdit = (values: TFlightFormValues) => {
     if (!params.flightId) return;
     dispatch(updateFlightAction({ ...values, flightId: params.flightId }));
+    toast({
+      title: "Flight updated.",
+      description: "We've updated your flight.",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   if (!params.flightId) {
@@ -33,7 +47,7 @@ const Edit: React.FC<EditProps> = ({}) => {
   }
 
   return (
-    <Container maxW="1400" paddingTop="60px">
+    <Container maxW="1400" paddingY="100px">
       <BackButton />
 
       {loading ? (
@@ -50,4 +64,5 @@ const Edit: React.FC<EditProps> = ({}) => {
   );
 };
 
-export default Edit;
+Component.displayName = "Edit";
+export { Component };
