@@ -59,7 +59,7 @@ const Component: React.FC<HomeProps> = ({}) => {
 
   return (
     <Container maxW="1400" paddingY="100px">
-      <Stack direction="row" spacing="160px">
+      <Stack direction={{ base: "column", md: "row" }} spacing="160px">
         <Stack spacing="16px" flex="1">
           <Heading>What's new...</Heading>
           {!items.length ? <SkeletonText /> : <FlightsList flights={items} />}
