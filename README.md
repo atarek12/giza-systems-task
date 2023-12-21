@@ -2,8 +2,6 @@
 
 This task show a basic app that includes CRUD operations.
 
-## Live Preview
-You can see live preview in the following [link](https://giza-systems-task.vercel.app/)
 
 ## Development
 To run the development environment follow these steps:
@@ -11,6 +9,7 @@ To run the development environment follow these steps:
 - Run these command in the terminal
  ```bash
 	yarn install
+	yarn serve
 	yarn dev
 ```
 
