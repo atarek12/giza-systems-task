@@ -21,8 +21,10 @@ export type TFlightFormValues = {
 
 const schema = Yup.object({
   code: Yup.string().required("This field is required!"),
-  date: Yup.string().required("This field is required!"),
   capacity: Yup.number().required("This field is required!"),
+  date: Yup.date()
+    .min(new Date(), "Date must be in the future")
+    .required("This field is required!"),
 }).required();
 
 interface AddUpdateFlightProps {
@@ -42,12 +44,19 @@ const AddUpdateFlight: React.FC<AddUpdateFlightProps> = ({
       capacity: flight?.capacity,
       date: flight?.date,
     },
-    resolver: yupResolver<TFlightFormValues>(schema),
+    resolver: yupResolver<TFlightFormValues>(schema as any),
   });
+
+  const handleSubmit = (values: TFlightFormValues) => {
+    onSubmit({
+      ...values,
+      date: new Date(values.date).toISOString().substring(0, 10),
+    });
+  };
 
   return (
     <FormProvider {...useFormAttributes}>
-      <form onSubmit={useFormAttributes?.handleSubmit(onSubmit)}>
+      <form onSubmit={useFormAttributes?.handleSubmit(handleSubmit)}>
         <Card border="1px solid">
           <CardHeader>Create a new flight</CardHeader>
 
