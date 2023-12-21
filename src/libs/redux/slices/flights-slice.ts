@@ -1,23 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TFlight } from "../../../shared/types";
 import { api } from "../../axios";
+import type { RootState } from "..";
+import { TGetFlightVariables } from "../../axios/flights-api";
 
 type TFlightsState = {
   items: TFlight[];
+  currentItem: TFlight | null;
   loading: boolean;
   error: string | undefined;
 };
 
 const initialState: TFlightsState = {
   items: [],
+  currentItem: null,
   loading: false,
   error: undefined,
 };
 
-export const loadFlightsAction = createAsyncThunk("load", api.listFlights);
+export const listFlightsAction = createAsyncThunk("list", api.listFlights);
 export const addFlightAction = createAsyncThunk("add", api.createFlight);
 export const updateFlightAction = createAsyncThunk("update", api.updateFlight);
 export const deleteFlightAction = createAsyncThunk("delete", api.deleteFlight);
+export const getFlightAction = createAsyncThunk(
+  "get",
+  async ({ flightId }: TGetFlightVariables, { getState }) => {
+    const items = (getState() as RootState).flights.items;
+    let existedItem = items.find((i) => i.id === flightId);
+    if (!existedItem) {
+      existedItem = await api.getFlight({ flightId });
+    }
+    return existedItem;
+  },
+);
 
 export const flightsSlice = createSlice({
   name: "flights",
@@ -26,15 +41,29 @@ export const flightsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // LOAD FLIGHTS
-      .addCase(loadFlightsAction.pending, (state) => {
+      .addCase(listFlightsAction.pending, (state) => {
         state.loading = true;
         state.error = undefined;
       })
-      .addCase(loadFlightsAction.fulfilled, (state, action) => {
+      .addCase(listFlightsAction.fulfilled, (state, action) => {
         state.loading = false;
         state.items = action.payload;
       })
-      .addCase(loadFlightsAction.rejected, (state, action) => {
+      .addCase(listFlightsAction.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      // GET FLIGHT
+      .addCase(getFlightAction.pending, (state) => {
+        state.loading = true;
+        state.error = undefined;
+      })
+      .addCase(getFlightAction.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentItem = action.payload;
+      })
+      .addCase(getFlightAction.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
@@ -76,7 +105,7 @@ export const flightsSlice = createSlice({
       .addCase(deleteFlightAction.fulfilled, (state, action) => {
         state.loading = false;
         state.items = state.items.filter(
-          (i) => i.id !== action.payload.flightId
+          (i) => i.id !== action.payload.flightId,
         );
       })
       .addCase(deleteFlightAction.rejected, (state, action) => {

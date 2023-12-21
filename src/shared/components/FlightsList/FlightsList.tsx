@@ -11,9 +11,9 @@ interface FlightsListProps {
 const FlightsList: React.FC<FlightsListProps> = ({ flights, hideButtons }) => {
   return (
     <Stack spacing="20px">
-      {flights.map((flight, index) => (
+      {flights.map((flight) => (
         <Box key={flight.id}>
-          <FlightCard index={index} flight={flight} hideButtons={hideButtons} />
+          <FlightCard flight={flight} hideButtons={hideButtons} />
         </Box>
       ))}
     </Stack>

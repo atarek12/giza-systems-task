@@ -19,16 +19,11 @@ import { ConfirmationModal } from "../ConfirmationModal";
 import { deleteFlightAction, useAppDispatch } from "../../../libs/redux";
 
 interface FlightCardProps {
-  index: number;
   flight: TFlight;
   hideButtons?: boolean;
 }
 
-const FlightCard: React.FC<FlightCardProps> = ({
-  index,
-  flight,
-  hideButtons,
-}) => {
+const FlightCard: React.FC<FlightCardProps> = ({ flight, hideButtons }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useAppDispatch();
 
@@ -41,7 +36,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
     <Card border="1px solid" borderColor="blue.100">
       <CardHeader>
         <Flex flex="1" gap="4" alignItems="center">
-          <Avatar name={`${index + 1}`} />
+          <Avatar />
           <Box>
             <Heading size="sm">{flight.code}</Heading>
             <Text>FLIGHT ID: {flight.id}</Text>
@@ -61,7 +56,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
             mr="10px"
             leftIcon={<EditIcon />}
             as={Link}
-            to={`flights/${flight.id}`}
+            to={flight.id}
           >
             Edit
           </Button>

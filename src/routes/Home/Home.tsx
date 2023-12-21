@@ -2,12 +2,15 @@ import { Box, Container, Heading, SkeletonText, Stack } from "@chakra-ui/react";
 import React, { useLayoutEffect } from "react";
 import {
   addFlightAction,
-  loadFlightsAction,
+  listFlightsAction,
   useAppDispatch,
   useAppSelector,
 } from "../../libs/redux";
-import CreatePost, { TCreateFlightFormValues } from "./components/CreateFlight";
-import { FlightsList } from "../../shared/components";
+import {
+  AddUpdateFlight,
+  FlightsList,
+  TFlightFormValues,
+} from "../../shared/components";
 
 interface HomeProps {}
 
@@ -17,11 +20,11 @@ const Home: React.FC<HomeProps> = ({}) => {
 
   useLayoutEffect(() => {
     if (!items.length) {
-      dispatch(loadFlightsAction());
+      dispatch(listFlightsAction());
     }
   }, [dispatch, items.length]);
 
-  const handleCreatePost = (values: TCreateFlightFormValues) => {
+  const handleCreateFlight = (values: TFlightFormValues) => {
     dispatch(addFlightAction(values));
   };
 
@@ -37,7 +40,7 @@ const Home: React.FC<HomeProps> = ({}) => {
           {!items.length ? <SkeletonText /> : <FlightsList flights={items} />}
         </Stack>
         <Box flex="1">
-          <CreatePost onSubmit={handleCreatePost} />
+          <AddUpdateFlight onSubmit={handleCreateFlight} />
         </Box>
       </Stack>
     </Container>

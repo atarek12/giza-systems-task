@@ -1,16 +1,23 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Stack,
-} from "@chakra-ui/react";
 import React from "react";
-import { FormInput } from "../../../shared/components";
-import { FormProvider, useForm } from "react-hook-form";
+import { TFlight } from "../../types";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Stack,
+  CardFooter,
+  Button,
+} from "@chakra-ui/react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, FormProvider } from "react-hook-form";
+import { FormInput } from "..";
+
+export type TFlightFormValues = {
+  code: string;
+  date: string;
+  capacity: number;
+};
 
 const schema = Yup.object({
   code: Yup.string().required("This field is required!"),
@@ -18,20 +25,24 @@ const schema = Yup.object({
   capacity: Yup.number().required("This field is required!"),
 }).required();
 
-export type TCreateFlightFormValues = {
-  code: string;
-  date: string;
-  capacity: number;
-};
-
-interface CreateFlightProps {
-  onSubmit: (values: TCreateFlightFormValues) => void;
+interface AddUpdateFlightProps {
+  flight?: TFlight;
+  onSubmit: (values: TFlightFormValues) => void;
 }
 
-const CreateFlight: React.FC<CreateFlightProps> = ({ onSubmit }) => {
-  const useFormAttributes = useForm<TCreateFlightFormValues>({
-    defaultValues: { code: "", capacity: 200, date: "" },
-    resolver: yupResolver<TCreateFlightFormValues>(schema),
+const AddUpdateFlight: React.FC<AddUpdateFlightProps> = ({
+  flight,
+  onSubmit,
+}) => {
+  const isAdding = !flight;
+
+  const useFormAttributes = useForm<TFlightFormValues>({
+    defaultValues: {
+      code: flight?.code,
+      capacity: flight?.capacity,
+      date: flight?.date,
+    },
+    resolver: yupResolver<TFlightFormValues>(schema),
   });
 
   return (
@@ -54,7 +65,7 @@ const CreateFlight: React.FC<CreateFlightProps> = ({ onSubmit }) => {
 
           <CardFooter>
             <Button type="submit" width="100%" colorScheme="blue">
-              Create
+              {isAdding ? "Create" : "Update"}
             </Button>
           </CardFooter>
         </Card>
@@ -63,4 +74,4 @@ const CreateFlight: React.FC<CreateFlightProps> = ({ onSubmit }) => {
   );
 };
 
-export default CreateFlight;
+export { AddUpdateFlight };

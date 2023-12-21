@@ -1,10 +1,16 @@
 {
   "flights": [
     {
-      "id": "1",
-      "code": "AAAA-AAAA",
-      "capacity": 200,
-      "date": "1703087599623"
+      "code": "123123",
+      "capacity": 400,
+      "date": "2023-12-30",
+      "id": "1"
+    },
+    {
+      "capacity": 400,
+      "date": "2023-12-28",
+      "code": "123123",
+      "id": "vlijVP1"
     }
   ]
 }
