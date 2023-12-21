@@ -23,6 +23,10 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
     }
   }, [dispatch, user]);
 
+  if (user) {
+    return children;
+  }
+
   if (loading || !isCalledRef.current) {
     return (
       <Center h="100vh">
@@ -35,7 +39,7 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
     return <Navigate to="/auth/login" replace />;
   }
 
-  return children;
+  return null;
 };
 
 export { RequireAuth };
