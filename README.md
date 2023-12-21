@@ -27,6 +27,4 @@ To run the development environment follow these steps:
 
 ## Features
 - Lazy loading of all routes
-- Lazy loading long posts list
-- Optimistic api updates
-- Caching for requested post-comments
+- Authentication
