@@ -75,7 +75,7 @@ export const flightsSlice = createSlice({
       })
       .addCase(addFlightAction.fulfilled, (state, action) => {
         state.loading = false;
-        state.items.unshift(action.payload);
+        state.items.push(action.payload);
       })
       .addCase(addFlightAction.rejected, (state, action) => {
         state.loading = false;
