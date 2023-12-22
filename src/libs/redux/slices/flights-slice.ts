@@ -90,7 +90,10 @@ export const flightsSlice = createSlice({
       .addCase(updateFlightAction.fulfilled, (state, action) => {
         const index = state.items.findIndex((e) => e.id === action.payload.id);
         state.loading = false;
-        state.items.splice(index, 1, action.payload);
+        state.currentItem = action.payload;
+        if (state.items.length) {
+          state.items.splice(index, 1, action.payload);
+        }
       })
       .addCase(updateFlightAction.rejected, (state, action) => {
         state.loading = false;

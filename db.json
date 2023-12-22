@@ -9,21 +9,15 @@
   ],
   "flights": [
     {
-      "capacity": 400,
-      "date": "2023-12-28",
-      "code": "123123",
-      "id": "vlijVP1"
-    },
-    {
-      "date": "2024-01-05",
+      "date": "2023-12-29",
       "capacity": 4444,
-      "code": "333",
+      "code": "3332222111111122555555555555555555555",
       "id": "QKkvIyA"
     },
     {
       "date": "2024-01-03",
       "capacity": 4444,
-      "code": "333",
+      "code": "AAAAAAAAAAAAAAAAAAAA",
       "id": "ilB7ZHs"
     },
     {
@@ -49,6 +43,12 @@
       "capacity": 33,
       "code": "264737",
       "id": "DvndB7j"
+    },
+    {
+      "date": "2024-01-03",
+      "capacity": 45,
+      "code": "AAAA",
+      "id": "80ybIGr"
     }
   ]
 }

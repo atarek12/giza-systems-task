@@ -20,7 +20,7 @@ const Component: React.FC<EditProps> = ({}) => {
   const { currentItem, loading } = useAppSelector((state) => state.flights);
 
   useLayoutEffect(() => {
-    if (!currentItem && params.flightId && !isCalledRef.current) {
+    if (params.flightId && !isCalledRef.current) {
       isCalledRef.current = true;
       dispatch(getFlightAction({ flightId: params.flightId }));
     }

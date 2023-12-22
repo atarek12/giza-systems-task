@@ -58,7 +58,9 @@ const AddUpdateFlight: React.FC<AddUpdateFlightProps> = ({
     <FormProvider {...useFormAttributes}>
       <form onSubmit={useFormAttributes?.handleSubmit(handleSubmit)}>
         <Card border="1px solid">
-          <CardHeader>Create a new flight</CardHeader>
+          <CardHeader>
+            {isAdding ? "Create a new flight" : "Update Flight"}
+          </CardHeader>
 
           <CardBody>
             <Stack spacing="16px">

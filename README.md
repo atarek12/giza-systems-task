@@ -26,4 +26,8 @@ To run the development environment follow these steps:
 
 ## Features
 - Lazy loading of all routes
-- Authentication
+- Authentication, Cannot access View/Edit flights without authentication
+- Redirect to the requested page after login.
+- Scroll down to the created post after creation.
+- Responsive for all screen sizes
+- Caching for already requested flights
