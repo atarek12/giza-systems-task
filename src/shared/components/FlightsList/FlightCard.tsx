@@ -47,7 +47,9 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight, hideButtons }) => {
         <Flex flex="1" gap="4" alignItems="center">
           <Avatar />
           <Box>
-            <Heading size="sm">{flight.code}</Heading>
+            <Heading wordBreak="break-all" size="sm">
+              {flight.code}
+            </Heading>
             <Text>FLIGHT ID: {flight.id}</Text>
           </Box>
         </Flex>
