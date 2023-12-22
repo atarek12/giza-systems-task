@@ -49,7 +49,8 @@ const Component: React.FC<SignupProps> = ({}) => {
   };
 
   if (user) {
-    return <Navigate to="/" replace />;
+    const pathname = localStorage.getItem("redirectTo");
+    return <Navigate to={pathname || "/"} replace />;
   }
 
   return (

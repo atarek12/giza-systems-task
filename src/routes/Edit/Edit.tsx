@@ -5,13 +5,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../libs/redux";
-import {
-  Container,
-  Heading,
-  SkeletonText,
-  Stack,
-  useToast,
-} from "@chakra-ui/react";
+import { Container, Heading, SkeletonText, useToast } from "@chakra-ui/react";
 import { Navigate, useParams } from "react-router-dom";
 import { AddUpdateFlight, TFlightFormValues } from "../../shared/components";
 import BackButton from "./BackButton";
@@ -55,10 +49,7 @@ const Component: React.FC<EditProps> = ({}) => {
       {loading ? (
         <SkeletonText />
       ) : !currentItem ? (
-        <Stack align="start">
-          <Heading>This Flight Not Found</Heading>
-          <BackButton />
-        </Stack>
+        <Heading>This Flight Not Found</Heading>
       ) : (
         <AddUpdateFlight flight={currentItem} onSubmit={handleEdit} />
       )}
